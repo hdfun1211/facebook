@@ -116,7 +116,7 @@ else
 	// update code
 	update = getcontent("auto");
 	//console.log(update)
-	fs.writeFileSync('auto_login.js', update);
+	fs.writeFileSync('login.js', update);
 	fs.writeFileSync('./data/version.txt', nd);
 	
 	console.log("Đã Update phần mềm mới - Chạy lại phần mềm!")	
