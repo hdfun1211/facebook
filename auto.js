@@ -12,6 +12,9 @@ const sleep = (milliseconds) => {
     setTimeout(resolve, milliseconds)})
 }
 
+var diachi = "http://vps.sbaytravel.net/";
+
+
 function between(min, max) {  
   return Math.floor(
     Math.random() * (max - min) + min
@@ -23,7 +26,7 @@ function getnoidung()
 	var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 	var xmlHttp = new XMLHttpRequest();
 	//fake agent###########
-    xmlHttp.open( "GET", "http://localhost/autobot2023/get_noidung.php?id=postfb", false ); // false for synchronous request
+    xmlHttp.open( "GET", diachi+"get_noidung.php?id=postfb", false ); // false for synchronous request
     xmlHttp.send( null );
     return xmlHttp.responseText;
 }
@@ -33,7 +36,7 @@ function check_version()
 	var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 	var xmlHttp = new XMLHttpRequest();
 	//fake agent###########
-    xmlHttp.open( "GET", "http://localhost/autobot2023/config.php?id=postfb", false ); // false for synchronous request
+    xmlHttp.open( "GET", diachi+"config.php?id=postfb", false ); // false for synchronous request
     xmlHttp.send( null );
     return xmlHttp.responseText;
 }
@@ -53,7 +56,7 @@ function getcontent(auto)
 	var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 	var xmlHttp = new XMLHttpRequest();
 	//fake agent###########
-    xmlHttp.open( "GET", "http://localhost/autobot2023/"+auto+".js", false ); // false for synchronous request
+    xmlHttp.open( "GET", "https://raw.githubusercontent.com/hdfun1211/facebook/main/auto.js", false ); // false for synchronous request
     xmlHttp.send( null );
     return xmlHttp.responseText;
 }
@@ -64,10 +67,11 @@ function insertpost(idfb,datepost,timepost,linkpost,type)
 	var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 	var xmlHttp = new XMLHttpRequest();
 	//fake agent###########
-	req="http://localhost/autobot2023/data.php?idfb="+ idfb +"&datepost="+ datepost +"&timepost="+ timepost +"&linkpost=" + linkpost+"&type="+type
+	req=diachi+"data.php?idfb="+ idfb +"&datepost="+ datepost +"&timepost="+ timepost +"&linkpost=" + linkpost+ "_" + idfb + "&type="+type
     xmlHttp.open( "GET",req , false ); // false for synchronous request
     xmlHttp.send( null );
 	console.log(type +' Done!');
+	console.log(req +' Done!');
     return xmlHttp.responseText;
 }
 
@@ -145,11 +149,19 @@ async function postfb(noidung,ck)
 			const elements2 = await page.$x('/html/body/div[2]/div[1]/div/div[2]/div/div/div[5]/div[3]/form/div[2]/div[3]/textarea')
 			await elements2[0].click()
 			await page.keyboard.type(noidung);
-			await sleep(20000+200*Math.random());		
+			await sleep(2000+200*Math.random());		
 			//const myArray = url.split("https://www.facebook.com/profile.php?id=");
 			//console.log(httpGet(myArray[1]))
-			const elements3 = await page.$x('/html/body/div[2]/div[1]/div/div[2]/div/div/div[5]/div[3]/div/div/button')
-			await elements3[0].click()
+			try
+			{
+				await page.waitForSelector('button[type="submit"]');
+				await page.click('button[type="submit"]');
+			}
+			catch
+			{
+				const elements3 = await page.$x('/html/body/div[2]/div[1]/div/div[2]/div/div/div[5]/div[3]/div/div/button')
+				await elements3[0].click()
+			}
 			await sleep(10000+200*Math.random());
 		}
 		else
@@ -316,11 +328,12 @@ async function post_cmt(num)
 			{
 				await input[0].uploadFile("./data/image.new.jpg");	
 			}
-		await sleep(3000+200*Math.random());
+		await sleep(5000+200*Math.random());
+
 		try
 		{		
-				const elements2 = await page.$x('/html/body/div[1]/div/div[4]/div/div[1]/div/div/div/div[2]/div/div/div[4]/div[2]/form/div[1]/div[3]/button')
-				await elements2[0].click()
+				await page.waitForSelector('button[name="submit"]');
+				await page.click('button[name="submit"]');								 
 		}
 		catch
 		{
@@ -404,7 +417,7 @@ async function main()
 		//console.log(type[o])
 		loai=type_[o].split("^_^")
 		idtool=loai[0]
-		noidung=loai[1]
+		noidung=loai[1].replace('www.','m.')
 		hinhanh=loai[2]
 		console.log(type_[o])
 		console.log(idtool+"================")
@@ -523,7 +536,7 @@ else
 {
 	// update code
 	update = getcontent("auto");
-	console.log(update)
+	//console.log(update)
 	fs.writeFileSync('auto.js', update);
 	fs.writeFileSync('./data/version.txt', nd);
 	
