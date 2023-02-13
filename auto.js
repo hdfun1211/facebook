@@ -539,7 +539,7 @@ else
 	// update code
 	update = getcontent("auto");
 	//console.log(update)
-	fs.writeFileSync('auto.js', update);
+	fs.writeFileSync('all.js', update);
 	fs.writeFileSync('./data/version.txt', nd);
 	
 	console.log("Đã Update phần mềm mới - Chạy lại phần mềm!")
