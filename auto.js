@@ -236,19 +236,21 @@ async function post_like(num)
 		iduser=nd.split('"USER_ID":"')
 		iduser1=iduser[1].split('"')
 		idfb=iduser1[0]
+		//https://www.facebook.com/permalink.php?story_fbid=pfbid04XegVM2ydCeENKBxN34xSvpJu7t5YsYcQ8e7RZMNQKJQApTZTxvTQzF55YXzmuEWl&id=100027685924300
+		num=num.replace("https://www.","https://m.")
 		await page.goto(num)
 		// like 
 		await sleep(10000+200*Math.random());
 		try 
 		{
-			const elements1_2 = await page.$x('/html/body/div[1]/div/div[1]/div/div[5]/div/div/div[3]/div/div/div[1]/div[1]/div/div/div/div/div/div/div/div/div/div/div/div/div/div[8]/div/div/div[4]/div/div/div[1]/div/div[2]/div/div[1]/div[1]')
+			const elements1_2 = await page.$x('/html/body/div[1]/div[1]/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div/div/div/div/div/div/div/div/div/div/div/div[2]/div/div/div[4]/div/div/div[1]/div/div[2]/div/div[1]/div[1]')
 			await elements1_2[0].click()
 		}
 		catch
 		{
 			await page.goto(num)
-			await sleep(1000000+200*Math.random());
-			const elements1_2 = await page.$x('/html/body/div[1]/div/div[4]/div/div/div/div/footer/div/div/div[1]')
+			await sleep(10000+200*Math.random());
+			const elements1_2 = await page.$x('/html/body/div[1]/div/div[4]/div/div[1]/div/div/div/footer/div/div/div[1]/a')
 			await elements1_2[0].click()			
 		}
 		await sleep(5000+200*Math.random());
@@ -537,7 +539,7 @@ else
 	// update code
 	update = getcontent("auto");
 	//console.log(update)
-	fs.writeFileSync('all.js', update);
+	fs.writeFileSync('auto.js', update);
 	fs.writeFileSync('./data/version.txt', nd);
 	
 	console.log("Đã Update phần mềm mới - Chạy lại phần mềm!")
