@@ -377,7 +377,146 @@ async function post_cmt(num)
 	}	)
 }
 
-// Post Comment...............
+// post lên group
+
+async function postgroup(noidung,ck)
+{
+	const puppeteer = require('puppeteer-extra')
+
+	// add stealth plugin and use defaults (all evasion techniques)
+	const StealthPlugin = require('puppeteer-extra-plugin-stealth')
+	puppeteer.use(StealthPlugin())
+	puppeteer.launch({ headless: false,
+	args: ['--start-maximized',
+		   ],
+	userDataDir: 'profile',
+	executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe"
+
+	}).then(async browser => {
+		const page = await browser.newPage()
+		await page.goto('https://www.facebook.com/me/')
+		const url = await page.url();
+		await sleep(5000+200*Math.random());
+		const myArray = url.split("https://www.facebook.com/profile.php?id=");
+		idfb=myArray[1]
+		
+		const buffer = fs.readFileSync("./data/listgroup.txt");
+		const fileContent = buffer.toString();
+		const numgr=fileContent.split("|")
+		for (var i=0;i<numgr.length;i++)
+		{
+			console.log(numgr[i])
+			group = numgr[i]
+						console.log('https://m.facebook.com/groups/'+group)
+						await page.goto('https://m.facebook.com/groups/'+group)
+						await sleep(1500+200*Math.random());
+						if(ck == false )//ko phai link
+								{
+									//const elements1 = await page.$x('/html/body/div[1]/div[1]/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div[4]/div[2]/div/div[2]/div[1]/div/div/div/div/div[1]/div')
+									//await elements1[0].click()
+									await sleep(2000+200*Math.random());
+									const elements1_1 = await page.$x('/html/body/div[1]/div/div[4]/div/div[1]/div/div[3]/div/div[1]/div[2]')
+									//html/body/div[1]/div/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div[3]/div/div/div[4]/div/div[2]/div/div/div/div[1]/div/div/div/div/div[1]/div
+									await elements1_1[0].click()
+									await sleep(2000+200*Math.random());		
+									const input = await page.$$('input[type=file]');
+									try
+									{
+										await input[1].uploadFile("./data/image.new.jpg");
+									}
+									catch
+										{
+											await input[0].uploadFile("./data/image.new.jpg");	
+										}
+
+									await sleep(10000+200*Math.random());
+									const elements2 = await page.$x('/html/body/div[2]/div[1]/div/div[2]/div/div/div[5]/div[3]/form/div[3]/div[3]/textarea')
+									await elements2[0].click()
+									await page.keyboard.type(noidung);
+									await sleep(5000+200*Math.random());		
+									//const myArray = url.split("https://www.facebook.com/profile.php?id=");
+									//console.log(httpGet(myArray[1]))
+									try
+									{		
+											await page.waitForSelector('button[name="submit"]');
+											await page.click('button[name="submit"]');								 
+									}
+									catch
+									{
+											const elements2 = await page.$x('/html/body/div[2]/div[1]/div/div[2]/div/div/div[5]/div[3]/div/div/button')
+																			 //html/body/div[1]/div/div[4]/div/div/div/div/div[2]/div/div/div[6]/div[2]/form/div[1]/div[3]/button
+											await elements2[0].click()
+											
+									}
+									await sleep(20000+200*Math.random());
+								}
+						else // chi share link
+								{
+									const elements2 = await page.$x('/html/body/div[2]/div[1]/div/div[2]/div/div/div[5]/div[3]/form/div[3]/div[3]/textarea')
+									await elements2[0].click()
+									await page.keyboard.type(noidung);
+									await sleep(5000+200*Math.random());		
+									//const myArray = url.split("https://www.facebook.com/profile.php?id=");
+									//console.log(httpGet(myArray[1]))
+									try
+									{		
+											await page.waitForSelector('button[name="submit"]');
+											await page.click('button[name="submit"]');								 
+									}
+									catch
+									{
+											const elements2 = await page.$x('/html/body/div[2]/div[1]/div/div[2]/div/div/div[5]/div[3]/div/div/button')
+																			 //html/body/div[1]/div/div[4]/div/div/div/div/div[2]/div/div/div[6]/div[2]/form/div[1]/div[3]/button
+											await elements2[0].click()
+											
+									}
+									await sleep(20000+200*Math.random());			
+								}
+						// mở post vừa share
+						await page.goto('https://www.facebook.com/groups/'+group+'/user/'+idfb)
+						await sleep(5000+200*Math.random());
+						nd = await page.content()
+						sl=nd.split('"post_id":"')
+						idpost=sl[1].split('"')
+						//l1=sl[1].split('"')
+						console.log(idpost[0])
+						let date_ob = new Date();
+						// current date
+						// adjust 0 before single digit date
+						let date = ("0" + date_ob.getDate()).slice(-2);
+						// current month
+						let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+						// current year
+						let year = date_ob.getFullYear();
+						// current hours
+						let hours = date_ob.getHours();
+						// current minutes
+						let minutes = date_ob.getMinutes();
+						// current seconds
+						let seconds = date_ob.getSeconds();
+						datepost = year + "-" + month + "-" + date
+						timepost = hours + ":" + minutes + ":" + seconds
+						linkpost= 'https://www.facebook.com/groups/'+group+'/posts/'+idpost[0]
+						console.log(idfb);
+						console.log(datepost);
+						console.log(timepost);
+						console.log(linkpost);
+						type="group"
+						insertpost(idfb,datepost,timepost,linkpost,type)
+						await sleep(30000+2000*Math.random());
+		}
+
+
+		await page.close();
+		await browser.close();
+		})
+}
+
+
+
+
+
+// Post test...............
 async function test(num)
 {
 
@@ -525,6 +664,10 @@ async function main()
 				{
 					console.log('Lấy ảnh cũ');
 				}
+							// post lên tường
+				ck = isValidUrl(noidung)
+				console.log(ck)
+				postgroup(noidung,ck)
 			}
 	// thời gian nghỉ sau mỗi lần thực hiện nhiệm vụ
 	await sleep(180000+200*Math.random());
