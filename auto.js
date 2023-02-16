@@ -399,7 +399,8 @@ async function postgroup(noidung,ck)
 		await sleep(5000+200*Math.random());
 		const myArray = url.split("https://www.facebook.com/profile.php?id=");
 		idfb=myArray[1]
-		
+		await page.goto('https://m.facebook.com/me/')
+		await sleep(5000+200*Math.random());		
 		const buffer = fs.readFileSync("./data/listgroup.txt");
 		const fileContent = buffer.toString();
 		const numgr=fileContent.split("|")
