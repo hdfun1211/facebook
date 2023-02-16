@@ -395,10 +395,12 @@ async function postgroup(noidung,ck)
 	}).then(async browser => {
 		const page = await browser.newPage()
 		await page.goto('https://www.facebook.com/me/')
-		const url = await page.url();
 		await sleep(5000+200*Math.random());
-		const myArray = url.split("https://www.facebook.com/profile.php?id=");
-		idfb=myArray[1]
+		md = await page.content()	
+		const myArray = md.split("&__user=");
+		idfb=myArray[1].split("&")
+		idfb=idfb[0]
+		console.log(idfb)
 		await page.goto('https://m.facebook.com/me/')
 		await sleep(5000+200*Math.random());		
 		const buffer = fs.readFileSync("./data/listgroup.txt");
