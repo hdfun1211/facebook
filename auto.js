@@ -397,8 +397,8 @@ async function postgroup(noidung,ck)
 		await page.goto('https://www.facebook.com/me/')
 		await sleep(5000+200*Math.random());
 		md = await page.content()	
-		const myArray = md.split("&__user=");
-		idfb=myArray[1].split("&")
+		const myArray = md.split('{"ACCOUNT_ID":"');
+		idfb=myArray[1].split('"')
 		idfb=idfb[0]
 		console.log(idfb)
 		await page.goto('https://m.facebook.com/me/')
@@ -411,7 +411,7 @@ async function postgroup(noidung,ck)
 			console.log(numgr[i])
 			group = numgr[i]
 						console.log('https://m.facebook.com/groups/'+group)
-						await page.goto('https://m.facebook.com/groups/'+group)
+						await page.goto('https://m.facebook.com/groups/'+group+"?_rdr")
 						await sleep(1500+200*Math.random());
 						if(ck == false )//ko phai link
 								{
