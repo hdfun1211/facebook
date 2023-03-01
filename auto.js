@@ -488,6 +488,89 @@ async function postvd(noidung,ck)
 		})
 }
 
+// upload reel
+async function up_reel(noidung)
+{
+	const puppeteer = require('puppeteer-extra')
+	// add stealth plugin and use defaults (all evasion techniques)
+	const StealthPlugin = require('puppeteer-extra-plugin-stealth')
+	puppeteer.use(StealthPlugin())
+	puppeteer.launch({ headless: false,
+	args: ['--start-maximized',
+		   ],
+	userDataDir: 'page',
+	executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe"
+
+	}).then(async browser => {
+		for(var i=0;i<1;i++)
+		  {
+		  const page = await browser.newPage()
+			await page.goto('https://www.facebook.com/reels/create')
+			await sleep(10000+200*Math.random());
+			const inputs = await page.$$("input[type=file]");
+			await inputs[0].uploadFile("./data/video.mp4");
+			await sleep(5000+200*Math.random());
+			try{
+			const elements1 = await page.$x('/html/body/div[1]/div/div[1]/div/div[5]/div/div/div[3]/div/div/div[1]/form/div/div/div[1]/div/div[3]/div[2]/div')
+			await elements1[0].click()
+			}
+			catch
+			{
+				const elements1 = await page.$x('/html/body/div[1]/div/div[1]/div/div[3]/div/div/div/div[1]/form/div/div/div[1]/div/div[3]/div[2]/div/div')
+				await elements1[0].click()	
+			}
+			await sleep(3000+200*Math.random());
+			try {
+				const elements2 = await page.$x('/html/body/div[1]/div/div[1]/div/div[3]/div/div/div/div[1]/form/div/div/div[1]/div/div[3]/div[2]/div[2]/div[1]')
+				await elements2[0].click()
+			}
+			catch
+			{
+				const elements2 = await page.$x('/html/body/div[1]/div/div[1]/div/div[5]/div/div/div[3]/div/div/div[1]/form/div/div/div[1]/div/div[3]/div[2]/div[2]/div[1]')
+				await elements2[0].click()
+			}
+			await sleep(3000+200*Math.random());
+			try{
+				const elements3 = await page.$x('/html/body/div[1]/div/div[1]/div/div[3]/div/div/div/div[1]/form/div/div/div[1]/div/div[2]/div[1]/div[2]/div/div/div/div/div[1]/div[1]/div[1]/div[1]')
+				await elements3[0].click()
+			}
+			catch
+			{
+				const elements3 = await page.$x('/html/body/div[1]/div/div[1]/div/div[5]/div/div/div[3]/div/div/div[1]/form/div/div/div[1]/div/div[2]/div[1]/div[2]/div/div/div/div/div[1]/div[1]/div[1]/div[1]')
+				await elements3[0].click()
+				
+			}
+			//let title1 =chosenFile1.replace(".mp4","");
+			//const title2 = title1.replace(/[0-9]/g, '');
+			const min = 10;
+			const max = 1000;
+			const randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+			const ms="No." + randomNum + " "
+			await page.keyboard.type(ms);
+			await sleep(7000+200*Math.random());
+			// dang video
+			try {
+				const elements4 = await page.$x('/html/body/div[1]/div/div[1]/div/div[3]/div/div/div/div[1]/form/div/div/div[1]/div/div[3]/div[2]/div[2]')
+				await elements4[0].click()
+			}
+			catch
+			{
+				const elements4 = await page.$x('/html/body/div[1]/div/div[1]/div/div[5]/div/div/div[3]/div/div/div[1]/form/div/div/div[1]/div/div[3]/div[2]/div[2]/div[1]')
+				await elements4[0].click()
+				//const elements4 = await page.$x('/html/body/div[1]/div/div[1]/div/div[3]/div/div/div/div[1]/form/div/div/div[1]/div/div[3]/div[2]/div[2]/div[1]')
+				//await elements4[0].click()				
+			}
+			await sleep(15000+200*Math.random());
+			// delete video uploaded
+			//fs.unlinkSync(dir+"/video/"+"/"+chosenFile1);
+			await sleep(10000+200*Math.random());
+			await page.close();
+		}
+		await browser.close();
+		})
+}
+
+
 
 // Chương trình chính
 
@@ -586,6 +669,35 @@ async function main()
 				postvd(noidung,ck)				
 			}
 
+// post reel lên page		
+		if(idtool=="upreel")
+			{
+				console.log("Post reel lên page")
+			// Xử lý Ảnh 
+			link_anh=Get_Gdrive(hinhanh)
+			img1=link_anh.split('<div data-id="')
+			i1=Math.floor(Math.random() * img1.length) + 1;
+			try
+			{
+				img2=img1[i1].split('"')
+				direct_img="https://drive.google.com/uc?export=download&id="+img2[0]
+				download(direct_img, './data/video.mp4',async function(){
+				  //console.log('download - done!');
+				  await sleep(2000);
+				 // editimage('./data/image.jpg')
+				  //await sleep(2000);
+				  //console.log('Edit - done!');
+				});
+			}
+			catch
+			{
+				console.log('Lấy video cũ');
+			}
+			// post lên tường
+				ck = isValidUrl(noidung)
+				console.log(ck)
+				up_reel(noidung)				
+			}
 // like
 		else if(idtool=="like")
 			{
