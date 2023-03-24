@@ -282,6 +282,79 @@ async function post_like(num)
 	}	)
 }
 
+// share
+async function post_share(num)
+{
+	const puppeteer = require('puppeteer-extra')
+	// add stealth plugin and use defaults (all evasion techniques)
+	const StealthPlugin = require('puppeteer-extra-plugin-stealth')
+	puppeteer.use(StealthPlugin())
+	puppeteer.launch({ headless: false,
+	args: ['--start-maximized',
+		   ],
+	userDataDir: 'profile',
+	executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe"
+
+	}).then(async browser => {
+		const page = await browser.newPage()
+		await page.goto('https://m.facebook.com/me/')
+		const url = await page.url();
+		await sleep(5000+200*Math.random());
+		nd = await page.content()
+		iduser=nd.split('"USER_ID":"')
+		iduser1=iduser[1].split('"')
+		idfb=iduser1[0]
+		await page.goto(num)
+		// share 
+		await sleep(10000+200*Math.random());
+		try 
+		{
+			const elements1_2 = await page.$x('/html/body/div[1]/div/div[4]/div/div[1]/div/div[2]/div[3]/div[3]/section/article[1]/footer/div/div[2]/div[3]')
+			await elements1_2[0].click()
+			await sleep(5000+200*Math.random());
+			const elements1_3 = await page.$x('/html/body/div[1]/div/div[2]/div/div/div[3]/div/button')
+			await elements1_3[0].click()			
+		}
+		catch
+		{
+			await page.goto(num)
+			await sleep(100000+200*Math.random());
+			const elements1_2 = await page.$x('/html/body/div[1]/div/div[4]/div/div[1]/div/div[2]/div[3]/div[3]/section/article[1]/footer/div/div[2]/div[3]')
+			await elements1_2[0].click()			
+			await sleep(5000+200*Math.random());
+			const elements1_3 = await page.$x('/html/body/div[1]/div/div[2]/div/div/div[3]/div/button')
+			await elements1_3[0].click()
+		}
+		await sleep(5000+200*Math.random());
+		let date_ob = new Date();
+		// current date
+		// adjust 0 before single digit date
+		let date = ("0" + date_ob.getDate()).slice(-2);
+		// current month
+		let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+		// current year
+		let year = date_ob.getFullYear();
+		// current hours
+		let hours = date_ob.getHours();
+		// current minutes
+		let minutes = date_ob.getMinutes();
+		// current seconds
+		let seconds = date_ob.getSeconds();
+		datepost = year + "-" + month + "-" + date
+		timepost = hours + ":" + minutes + ":" + seconds
+		linkpost= num
+		//console.log(idfb);
+		//console.log(datepost);
+		//console.log(timepost);
+		//console.log(linkpost);
+		type="share"
+		insertpost(idfb,datepost,timepost,linkpost,type)
+		await sleep(30000+2000*Math.random());
+		await page.close();
+		await browser.close();
+	
+	}	)
+}
 // Post Comment...............
 async function post_cmt(num)
 {
@@ -706,6 +779,15 @@ async function main()
 				post_like(url)
 				
 			}
+// share
+		else if(idtool=="share")
+			{
+				console.log ("share")
+				url = "https://m.facebook.com/profile.php?id="+noidung;
+				post_share(url)
+				
+			}
+
 // Post comment
 		else if (idtool=="cmt")
 			{
