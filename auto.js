@@ -840,7 +840,7 @@ async function main()
 				}
 			}
 	// thời gian nghỉ sau mỗi lần thực hiện nhiệm vụ
-	await sleep(180000+200*Math.random());
+	await sleep(600000+200*Math.random());
 	
 	}
 
