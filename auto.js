@@ -643,7 +643,151 @@ async function up_reel(noidung)
 		})
 }
 
+// Review Map
+async function reviewmap(noidung, hinhanh)
+{
+const puppeteer = require('puppeteer-extra')
 
+// add stealth plugin and use defaults (all evasion techniques)
+const StealthPlugin = require('puppeteer-extra-plugin-stealth')
+puppeteer.use(StealthPlugin())
+
+const sleep = (milliseconds) => {
+  return new Promise(resolve => {
+    console.log('sleep '+milliseconds+' milliseconds');
+    setTimeout(resolve, milliseconds)})
+}
+
+puppeteer.launch({ headless: false,
+args: ['--start-maximized',
+      //'--load-extension='+dir+"extention/hide",
+	  ],
+userDataDir: './profile_gg/',
+executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe"
+
+}).then(async browser => {
+  const page = await browser.newPage()
+
+await page.goto('https://www.google.com/maps')
+await sleep(10000+200*Math.random());
+	try{
+		//httpGet(id+"|"+user+"|"+pass+"|"+recovery)
+		//await page.click('button[data-provider="google"]')
+		var keyword = noidung
+		//await page2.keyboard.type(tenvideo);
+		//keyword=
+		await sleep(10000+200*Math.random());
+		await page.type('#searchboxinput',keyword,{delay: 100+10*Math.random()})
+		await sleep(2000+200*Math.random());
+		await page.keyboard.press('Enter');
+		await sleep(5000+200*Math.random());
+
+				// Chọn đánh giá
+				try
+				{									
+					const elements = await page.$x('/html/body/div[3]/div[9]/div[9]/div/div/div[1]/div[2]/div/div[1]/div/div/div[2]/div/div/button[3]')
+					await elements[0].click()					
+					await sleep(2000+200*Math.random());
+					const elements1 = await page.$x('/html/body/div[3]/div[9]/div[9]/div/div/div[1]/div[2]/div/div[1]/div/div/div[3]/div[4]/div/button')
+					await elements1[0].click()
+					await sleep(2000+200*Math.random());
+				}
+				catch
+				{
+					const elements = await page.$x('/html/body/div[3]/div[9]/div[9]/div/div/div[1]/div[2]/div/div[1]/div/div/div[3]/div/div/button[3]')
+					await elements[0].click()						
+					await sleep(2000+200*Math.random());
+					const elements1 = await page.$x('/html/body/div[3]/div[9]/div[9]/div/div/div[1]/div[2]/div/div[1]/div/div/div[5]/div[4]/div/button')
+					await elements1[0].click()
+					await sleep(2000+200*Math.random());					
+				}
+
+				// handle frame 1
+				const frameHandle = await page.$("iframe[name='goog-reviews-write-widget']");
+				const frame = await frameHandle.contentFrame();
+				// filling form in iframe
+				//await frame.type('input', 'chercher tech');
+				// thêm sao
+				const elements2_1 = await frame.$x('/html/body/div[1]/c-wiz/div/div/div/div/div[1]/div[1]')
+				await elements2_1[0].click()
+				await sleep(2000+200*Math.random());
+				const elements2 = await frame.$x('/html/body/div[1]/c-wiz/div/div/div/div/div[1]/div[3]/div/div[2]/div/div[5]')
+				await elements2[0].click()
+				await sleep(2000+200*Math.random());
+				try
+					{
+						// dịch vụ phòng
+						const elements2_1 = await frame.$x('/html/body/div/c-wiz/div/div/div/div/div[1]/div[3]/div/div[3]/div[1]/div/div/div[5]')
+						await elements2_1[0].click()
+						await sleep(2000+200*Math.random());
+						// dịch vụ 
+						const elements2_2 = await frame.$x('/html/body/div/c-wiz/div/div/div/div/div[1]/div[3]/div/div[3]/div[2]/div/div/div[5]')
+						await elements2_2[0].click()
+						await sleep(2000+200*Math.random());						
+						// Vị trí 
+						const elements2_3 = await frame.$x('/html/body/div/c-wiz/div/div/div/div/div[1]/div[3]/div/div[3]/div[3]/div/div/div[5]')
+						await elements2_3[0].click()
+						await sleep(2000+200*Math.random());
+					}
+				catch
+					{
+						console.log("Ko đánh giá chi tiết")
+					}
+				// Viết nội dung bình luận
+				try 
+				{
+					const elements3 = await frame.$x('/html/body/div[1]/c-wiz/div/div/div/div/div[1]/div[3]/div/div[3]/div[1]/div/label/textarea')
+					await elements3[0].click()
+					await sleep(2000+200*Math.random());				
+					var review = hinhanh
+					await frame.type('textarea', review);
+					//await frame.type(noidung)
+					await sleep(2000+200*Math.random());					
+				}
+				catch
+				{
+					const elements3 = await frame.$x('/html/body/div/c-wiz/div/div/div/div/div[1]/div[3]/div/div[4]/div[1]/div/label/textarea')
+					await elements3[0].click()
+					await sleep(2000+200*Math.random());				
+					var review = hinhanh
+					await frame.type('textarea', review);
+					//await frame.type(noidung)
+					await sleep(2000+200*Math.random());					
+				}
+												  
+				// Đăng review
+				try
+				{
+					const elements5 = await frame.$x('/html/body/div[1]/c-wiz/div/div/div/div/div[2]/div/div[2]/div/button')
+					await elements5[0].click()
+					await sleep(2000+200*Math.random());	
+				}
+				catch
+				{
+					const elements5 = await frame.$x('/html/body/div/c-wiz/div/div/div/div/div[2]/div/div[2]/div/button')
+					await elements5[0].click()
+					await sleep(2000+200*Math.random());	
+				}
+				//Xem đánh giá vửa cập nhật
+				const elements6 = await frame.$x('/html/body/div[1]/c-wiz/div/div/div/c-wiz/div/div[2]/div/div[2]/div/button')
+				await elements6[0].click()
+				await sleep(20000+200*Math.random());					
+				
+
+		}
+	catch(err)
+		{
+			console.log(err)
+			await sleep(2000000+200*Math.random());	
+
+		}
+
+	await sleep(30000+200*Math.random());
+	await page.close();
+	await browser.close();
+
+})
+}
 
 // Chương trình chính
 
@@ -779,6 +923,15 @@ async function main()
 				post_like(url)
 				
 			}
+// review map
+		else if(idtool=="reviewmap")
+			{
+				console.log ("reviewmap")
+				//url = noidung.replace("m.", "www.");
+				reviewmap(noidung,hinhanh)
+				
+			}
+
 // share
 		else if(idtool=="share")
 			{
@@ -839,8 +992,8 @@ async function main()
 					console.log('Lấy ảnh cũ');
 				}
 			}
-	// thời gian nghỉ sau mỗi lần thực hiện nhiệm vụ
-	await sleep(600000+200*Math.random());
+	//thời gian nghỉ sau mỗi lần thực hiện nhiệm vụ
+	await sleep(300000+200*Math.random());
 	
 	}
 
