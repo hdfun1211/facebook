@@ -789,6 +789,105 @@ await sleep(10000+200*Math.random());
 })
 }
 
+// Upload short youtube
+async function uploadshort(noidung, hinhanh)
+{
+puppeteer.launch({ headless: false,
+args: ['--start-maximized',
+	  ],
+userDataDir: './profile_gg/',
+executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe"
+
+}).then(async browser => {
+  const page = await browser.newPage()
+// #### Upload video #########
+		await sleep(3000+200*Math.random());
+		await page.goto("https://studio.youtube.com")
+		await sleep(5000+200*Math.random());
+		try {
+			await page.click('#dismiss-button',{delay: 500+100*Math.random()})
+			await sleep(1000+200*Math.random());
+		}
+		catch(err)
+		{
+		console.log(err)
+		}
+		try {
+			await page.click('#close-button',{delay: 500+100*Math.random()})
+			await sleep(1000+200*Math.random());	
+			await page.click('#close-button',{delay: 500+100*Math.random()})
+			await sleep(1000+200*Math.random());
+		}
+		catch(err)
+		{
+		console.log(err)
+		}
+	try{
+		const elements19 = await page.$x('//*[@id="create-icon"]')
+		await elements19[0].click()
+		await sleep(2000+200*Math.random());
+		const elements20 = await page.$x('/html/body/ytcp-app/ytcp-entity-page/div/ytcp-header/header/div/ytcp-text-menu/tp-yt-paper-dialog/tp-yt-paper-listbox/tp-yt-paper-item[1]')
+		await elements20[0].click()
+		await sleep(2000+200*Math.random());
+		const input = await page.$('#content > input[type=file]');
+		await input.uploadFile("./data/video.mp4");
+		await sleep(5000+200*Math.random());
+		// Điền Title video
+		const elements21 = await page.$x('/html/body/ytcp-uploads-dialog/tp-yt-paper-dialog/div/ytcp-animatable[1]/ytcp-ve/ytcp-video-metadata-editor/div/ytcp-video-metadata-editor-basics/div[1]/ytcp-social-suggestions-textbox/ytcp-form-input-container/div[1]/div[2]/div/ytcp-social-suggestion-input/div')
+		await elements21[0].click()
+		for (let i = 0; i < 100; i++) {
+			await page.keyboard.press('Backspace');}
+		await page.keyboard.type(noidung);
+		//# Khong danh cho tre em
+		await sleep(3000+200*Math.random());
+		const elements22 = await page.$x('/html/body/ytcp-uploads-dialog/tp-yt-paper-dialog/div/ytcp-animatable[1]/ytcp-ve/ytcp-video-metadata-editor/div/ytcp-video-metadata-editor-basics/div[5]/ytkc-made-for-kids-select/div[4]/tp-yt-paper-radio-group/tp-yt-paper-radio-button[2]/div[1]')
+		await elements22[0].click()
+		await sleep(10000+200*Math.random());
+		//# Public video ------------------------
+		//html/body/ytcp-uploads-dialog/tp-yt-paper-dialog/div/div[1]/ytcp-animatable/ytcp-stepper/div/div[4]
+		await sleep(2000+200*Math.random());
+		const elements23 = await page.$x('/html/body/ytcp-uploads-dialog/tp-yt-paper-dialog/div/div[1]/ytcp-animatable/ytcp-stepper/div/div[4]/button')
+		await elements23[0].click()		
+		await sleep(2000+200*Math.random());		
+		try {
+			const elements24 = await page.$x('/html/body/ytcp-uploads-dialog/tp-yt-paper-dialog/div/ytcp-animatable[1]/ytcp-uploads-review/div[2]/div[1]/ytcp-video-visibility-select/div[2]/tp-yt-paper-radio-group/tp-yt-paper-radio-button[3]/div[1]/div[1]')
+			await elements24[0].click()	
+			await sleep(5000+200*Math.random());
+			}
+		catch(err)
+			{
+			await sleep(5000+200*Math.random());
+			const elements26 = await page.$x('/html/body/ytcp-uploads-dialog/tp-yt-paper-dialog/div/ytcp-animatable[1]/ytcp-uploads-review/div[2]/div[1]/ytcp-video-visibility-select/div[1]/tp-yt-paper-radio-group/div[2]/ytcp-checkbox-lit/div[1]/div')
+			await elements26[0].click()		
+			}
+		// Lưu lại
+		await sleep(5000+200*Math.random());
+		const elements27 = await page.$x('/html/body/ytcp-uploads-dialog/tp-yt-paper-dialog/div/ytcp-animatable[2]/div/div[2]/ytcp-button[3]')
+		await sleep(5000+200*Math.random());
+		await elements27[0].click()
+		await sleep(5000+200*Math.random());
+		//fs.unlinkSync(dir+"/video/"+idfolder+"/"+filename);
+	}
+	catch(err)
+		{
+		console.log(err)
+		}
+console.log("Xong upload video: "+filename)
+//Xong upload video ************/
+	await sleep(60000+200*Math.random());
+	
+	await page.close();
+	await browser.close();
+})	
+	
+	
+	
+}
+
+
+
+
+
 // Chương trình chính
 
 nd=check_version()
@@ -992,6 +1091,38 @@ async function main()
 					console.log('Lấy ảnh cũ');
 				}
 			}
+// post short lên kênh		
+		else if(idtool=="upshort")
+			{
+				console.log("Upshort lên kênh youtube")
+			// Xử lý Ảnh 
+			link_anh=Get_Gdrive(hinhanh)
+			img1=link_anh.split('<div data-id="')
+			i1=Math.floor(Math.random() * img1.length) + 1;
+			try
+			{
+				img2=img1[i1].split('"')
+				direct_img="https://drive.google.com/uc?export=download&id="+img2[0]
+				download(direct_img, './data/video.mp4',async function(){
+				  //console.log('download - done!');
+				  await sleep(2000);
+				 // editimage('./data/image.jpg')
+				  //await sleep(2000);
+				  //console.log('Edit - done!');
+				});
+			}
+			catch
+			{
+				console.log('Lấy video cũ');
+			}
+			// post lên tường
+				ck = isValidUrl(noidung)
+				console.log(ck)
+				uploadshort(noidung, hinhanh)				
+			}
+
+
+
 	//thời gian nghỉ sau mỗi lần thực hiện nhiệm vụ
 	await sleep(300000+200*Math.random());
 	
