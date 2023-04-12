@@ -478,9 +478,17 @@ async function postvd(noidung,ck)
 			// vừa ảnh vừa text
 			//const elements1 = await page.$x('/html/body/div[1]/div[1]/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div[4]/div[2]/div/div[2]/div[1]/div/div/div/div/div[1]/div')
 			//await elements1[0].click()
-			await sleep(2000+200*Math.random());
-			const elements1_1 = await page.$x('/html/body/div[1]/div/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div[2]/div/div/div/div[3]/div/div[2]/div/div/div/div[2]/div[2]')
-			await elements1_1[0].click()
+			await sleep(20000+200*Math.random());
+			try {
+				const elements1_1 = await page.$x('/html/body/div[1]/div/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div[2]/div/div/div/div[3]/div/div[2]/div/div/div/div[2]/div[2]')
+				await elements1_1[0].click()
+			}
+			catch 
+			{
+				const elements1_1 = await page.$x('/html/body/div[1]/div/div[1]/div/div[5]/div/div/div[3]/div/div/div[1]/div[1]/div/div[1]/div/div/div/div[3]/div/div[2]/div/div/div/div[2]/div[2]')
+				await elements1_1[0].click()				
+			}
+			
 			await sleep(5000+200*Math.random());		
 			const input = await page.$$('input[type=file]');
 			try
