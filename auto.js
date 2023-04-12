@@ -491,7 +491,7 @@ async function postvd(noidung,ck)
 				{
 					await input[0].uploadFile("./data/video.mp4");	
 				}
-			await sleep(10000+200*Math.random());
+			await sleep(20000+200*Math.random());
 			const elements2 = await page.$x('/html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/form/div/div[1]/div/div/div/div[2]/div[1]/div[1]/div[1]/div/div')
 			await elements2[0].click()
 			await page.keyboard.type(noidung);
@@ -582,7 +582,7 @@ async function up_reel(noidung)
 			await sleep(10000+200*Math.random());
 			const inputs = await page.$$("input[type=file]");
 			await inputs[0].uploadFile("./data/video.mp4");
-			await sleep(5000+200*Math.random());
+			await sleep(20000+200*Math.random());
 			try{
 			const elements1 = await page.$x('/html/body/div[1]/div/div[1]/div/div[5]/div/div/div[3]/div/div/div[1]/form/div/div/div[1]/div/div[3]/div[2]/div')
 			await elements1[0].click()
