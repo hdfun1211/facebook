@@ -500,10 +500,18 @@ async function postvd(noidung,ck)
 					await input[0].uploadFile("./data/video.mp4");	
 				}
 			await sleep(20000+200*Math.random());
-			const elements2 = await page.$x('/html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/form/div/div[1]/div/div/div/div[2]/div[1]/div[1]/div[1]/div/div')
-			await elements2[0].click()
+			try{
+				const elements2 = await page.$x('/html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/form/div/div[1]/div/div/div/div[2]/div[1]/div[1]/div[1]/div/div')
+				await elements2[0].click()
+			}
+			catch
+			{
+				const elements2 = await page.$x('/html/body/div[1]/div/div[1]/div/div[6]/div/div/div[1]/div/div[2]/div/div/div/form/div/div[1]/div/div/div/div[2]/div[1]/div[1]/div[1]/div/div/div[1]')
+				await elements2[0].click()				
+			
+			}
 			await page.keyboard.type(noidung);
-			await sleep(2000+200*Math.random());		
+			await sleep(20000+200*Math.random());		
 			//const myArray = url.split("https://www.facebook.com/profile.php?id=");
 			//console.log(httpGet(myArray[1]))
 			try
@@ -513,8 +521,18 @@ async function postvd(noidung,ck)
 			}
 			catch
 			{
-				const elements3 = await page.$x('/html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/form/div/div[1]/div/div/div/div[3]/div[2]/div')
-				await elements3[0].click()
+				
+				try
+				{
+					const elements3 = await page.$x('/html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/form/div/div[1]/div/div/div/div[3]/div[2]/div')
+					await elements3[0].click()
+				}
+				catch
+				{
+					const elements3 = await page.$x('/html/body/div[1]/div/div[1]/div/div[6]/div/div/div[1]/div/div[2]/div/div/div/form/div/div[1]/div/div/div/div[3]/div[2]/div')
+					await elements3[0].click()				
+				
+				}
 			}
 			await sleep(10000+200*Math.random());
 		}
@@ -536,10 +554,18 @@ async function postvd(noidung,ck)
 		await page.goto('https://m.facebook.com/me/')
 		await sleep(5000+200*Math.random());
 		nd = await page.content()
-		sl=nd.split('feedbackTargetID:"')
-		idpost=sl[2].split('"')
+		try
+		{
+			sl=nd.split('feedbackTargetID:"')
+			idpost=sl[2].split('"')
+			idpost=idpost[0]
+		}
+		catch
+		{
+			idpost=""
+		}
 		//l1=sl[1].split('"')
-		console.log(idpost[0])
+		console.log(idpost)
 		let date_ob = new Date();
 		// current date
 		// adjust 0 before single digit date
@@ -556,7 +582,7 @@ async function postvd(noidung,ck)
 		let seconds = date_ob.getSeconds();
 		datepost = year + "-" + month + "-" + date
 		timepost = hours + ":" + minutes + ":" + seconds
-		linkpost= 'https://www.facebook.com/permalink.php?story_fbid='+idpost[0]
+		linkpost= 'https://www.facebook.com/permalink.php?story_fbid='+idpost
 		console.log(idfb);
 		//console.log(datepost);
 		//console.log(timepost);
