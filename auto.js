@@ -905,8 +905,9 @@ executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe"
 	catch(err)
 		{
 		console.log(err)
+		await sleep(2000000+200*Math.random());	
 		}
-console.log("Xong upload video: "+filename)
+console.log("Xong upload video: ")
 //Xong upload video ************/
 	await sleep(60000+200*Math.random());
 	
