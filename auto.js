@@ -182,10 +182,17 @@ async function postfb(noidung,ck)
 		await page.goto('https://m.facebook.com/me/')
 		await sleep(5000+200*Math.random());
 		nd = await page.content()
-		sl=nd.split('feedbackTargetID:"')
-		idpost=sl[2].split('"')
+		try{
+			sl=nd.split('feedbackTargetID:"')
+			idpost=sl[2].split('"')
+			idpost1=idpost[0]
+		}
+		catch
+		{
+			idpost1=""
+		}
 		//l1=sl[1].split('"')
-		console.log(idpost[0])
+		console.log(idpost1)
 		let date_ob = new Date();
 		// current date
 		// adjust 0 before single digit date
@@ -202,7 +209,7 @@ async function postfb(noidung,ck)
 		let seconds = date_ob.getSeconds();
 		datepost = year + "-" + month + "-" + date
 		timepost = hours + ":" + minutes + ":" + seconds
-		linkpost= 'https://www.facebook.com/permalink.php?story_fbid='+idpost[0]
+		linkpost= 'https://www.facebook.com/permalink.php?story_fbid='+idpost1
 		console.log(idfb);
 		//console.log(datepost);
 		//console.log(timepost);
@@ -304,9 +311,11 @@ async function post_share(num)
 		iduser=nd.split('"USER_ID":"')
 		iduser1=iduser[1].split('"')
 		idfb=iduser1[0]
+		num=num.replace("www","m")
+		console.log(num)
 		await page.goto(num)
 		// share 
-		await sleep(10000+200*Math.random());
+		await sleep(5000+200*Math.random());
 		try 
 		{
 			const elements1_2 = await page.$x('/html/body/div[1]/div/div[4]/div/div[1]/div/div[2]/div[3]/div[3]/section/article[1]/footer/div/div[2]/div[3]')
@@ -319,7 +328,7 @@ async function post_share(num)
 		{
 			await page.goto(num)
 			await sleep(100000+200*Math.random());
-			const elements1_2 = await page.$x('/html/body/div[1]/div/div[4]/div/div[1]/div/div[2]/div[3]/div[3]/section/article[1]/footer/div/div[2]/div[3]')
+			const elements1_2 = await page.$x('/html/body/div[1]/div/div[4]/div/div[1]/div/div/div/footer/div[1]/div/div[3]')
 			await elements1_2[0].click()			
 			await sleep(5000+200*Math.random());
 			const elements1_3 = await page.$x('/html/body/div[1]/div/div[2]/div/div/div[3]/div/button')
@@ -905,9 +914,8 @@ executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe"
 	catch(err)
 		{
 		console.log(err)
-		await sleep(2000000+200*Math.random());	
 		}
-console.log("Xong upload video: ")
+console.log("Xong upload video: "+filename)
 //Xong upload video ************/
 	await sleep(60000+200*Math.random());
 	
@@ -1070,7 +1078,7 @@ async function main()
 		else if(idtool=="share")
 			{
 				console.log ("share")
-				url = "https://m.facebook.com/profile.php?id="+noidung;
+				url = noidung;
 				post_share(url)
 				
 			}
