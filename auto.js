@@ -327,7 +327,7 @@ async function post_share(num)
 		catch
 		{
 			await page.goto(num)
-			await sleep(100000+200*Math.random());
+			await sleep(10000+200*Math.random());
 			const elements1_2 = await page.$x('/html/body/div[1]/div/div[4]/div/div[1]/div/div/div/footer/div[1]/div/div[3]')
 			await elements1_2[0].click()			
 			await sleep(5000+200*Math.random());
