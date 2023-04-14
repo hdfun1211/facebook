@@ -327,7 +327,7 @@ async function post_share(num)
 		catch
 		{
 			await page.goto(num)
-			await sleep(10000+200*Math.random());
+			await sleep(1000+200*Math.random());
 			const elements1_2 = await page.$x('/html/body/div[1]/div/div[4]/div/div[1]/div/div/div/footer/div[1]/div/div[3]')
 			await elements1_2[0].click()			
 			await sleep(5000+200*Math.random());
@@ -388,11 +388,12 @@ async function post_cmt(num)
 		idfb=iduser1[0]
 		await page.goto(num)
 		await sleep(10000+200*Math.random());
+		///html/body/div[1]/div/div[4]/div/div[1]/div/div/div/footer/div/div/div[2]/a
 		const elements1 = await page.$x('/html/body/div[1]/div/div[4]/div/div[1]/div/div/div/footer/div/div/div[2]')
 		await elements1[0].click()
 		try {
 		await sleep(5000+200*Math.random());
-		const elements12 = await page.$x('/html/body/div[1]/div/div[4]/div/div/div/div/footer/div/div/div[2]')
+		const elements12 = await page.$x('/html/body/div[1]/div/div[4]/div/div[1]/div/div/div/div[2]/div/div/div[3]/div[2]/form/div[1]/div[2]/div[1]/div/textarea')
 		await elements12[0].click()
 		}
 		catch
@@ -404,11 +405,11 @@ async function post_cmt(num)
 		const input = await page.$$('input[type=file]');
 		try
 		{
-			await input[1].uploadFile("./data/image.new.jpg");
+			await input[0].uploadFile("./data/image.jpg");
 		}
 		catch
 			{
-				await input[0].uploadFile("./data/image.new.jpg");	
+				await input[1].uploadFile("./data/image.jpg");	
 			}
 		await sleep(5000+200*Math.random());
 
@@ -419,10 +420,18 @@ async function post_cmt(num)
 		}
 		catch
 		{
+				try{
 				const elements2 = await page.$x('/html/body/div[1]/div/div[4]/div/div/div/div/div[2]/div/div/div[6]/div[2]/form/div[1]/div[3]/button')
 				                                 //html/body/div[1]/div/div[4]/div/div/div/div/div[2]/div/div/div[6]/div[2]/form/div[1]/div[3]/button
 				await elements2[0].click()
+				}
+				catch
+				{
+				const elements2 = await page.$x('/html/body/div[1]/div/div[4]/div/div[1]/div/div/div/div[2]/div/div/div[3]/div[2]/form/div[1]/div[3]/button')
+				                                 //html/body/div[1]/div/div[4]/div/div/div/div/div[2]/div/div/div[6]/div[2]/form/div[1]/div[3]/button
+				await elements2[0].click()					
 				
+				}
 		}		
 		await sleep(5000+200*Math.random());
 		await page.goto('https://m.facebook.com/me/')
