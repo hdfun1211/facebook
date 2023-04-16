@@ -1176,7 +1176,7 @@ async function main()
 
 
 	//thời gian nghỉ sau mỗi lần thực hiện nhiệm vụ
-	await sleep(300000+200*Math.random());
+	await sleep(900000+200*Math.random());
 	
 	}
 
