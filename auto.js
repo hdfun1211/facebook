@@ -883,7 +883,7 @@ executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe"
 		await sleep(2000+200*Math.random());
 		const input = await page.$('#content > input[type=file]');
 		await input.uploadFile("./data/video.mp4");
-		await sleep(5000+200*Math.random());
+		await sleep(10000+200*Math.random());
 		// Điền Title video
 		const elements21 = await page.$x('/html/body/ytcp-uploads-dialog/tp-yt-paper-dialog/div/ytcp-animatable[1]/ytcp-ve/ytcp-video-metadata-editor/div/ytcp-video-metadata-editor-basics/div[1]/ytcp-social-suggestions-textbox/ytcp-form-input-container/div[1]/div[2]/div/ytcp-social-suggestion-input/div')
 		await elements21[0].click()
@@ -992,9 +992,9 @@ async function main()
 				direct_img="https://drive.google.com/uc?export=download&id="+img2[0]
 				download(direct_img, './data/image.jpg',async function(){
 				  //console.log('download - done!');
-				  await sleep(2000);
+				  await sleep(20000);
 				  editimage('./data/image.jpg')
-				  await sleep(2000);
+				  await sleep(20000);
 				  //console.log('Edit - done!');
 				});
 			}
@@ -1021,7 +1021,7 @@ async function main()
 				direct_img="https://drive.google.com/uc?export=download&id="+img2[0]
 				download(direct_img, './data/video.mp4',async function(){
 				  //console.log('download - done!');
-				  await sleep(2000);
+				  await sleep(20000);
 				 // editimage('./data/image.jpg')
 				  //await sleep(2000);
 				  //console.log('Edit - done!');
@@ -1051,7 +1051,7 @@ async function main()
 				direct_img="https://drive.google.com/uc?export=download&id="+img2[0]
 				download(direct_img, './data/video.mp4',async function(){
 				  //console.log('download - done!');
-				  await sleep(2000);
+				  await sleep(20000);
 				 // editimage('./data/image.jpg')
 				  //await sleep(2000);
 				  //console.log('Edit - done!');
@@ -1106,9 +1106,9 @@ async function main()
 					direct_img="https://drive.google.com/uc?export=download&id="+img2[0]
 					download(direct_img, './data/image.jpg',async function(){
 					  //console.log('download - done!');
-					  await sleep(2000);
+					  await sleep(20000);
 					  editimage('./data/image.jpg')
-					  await sleep(2000);
+					  await sleep(20000);
 					  //console.log('Edit - done!');
 					});
 				}
@@ -1132,9 +1132,9 @@ async function main()
 					direct_img="https://drive.google.com/uc?export=download&id="+img2[0]
 					download(direct_img, './data/image.jpg',async function(){
 					  //console.log('download - done!');
-					  await sleep(2000);
+					  await sleep(20000);
 					  editimage('./data/image.jpg')
-					  await sleep(2000);
+					  await sleep(20000);
 					  //console.log('Edit - done!');
 					});
 				}
@@ -1157,7 +1157,7 @@ async function main()
 				direct_img="https://drive.google.com/uc?export=download&id="+img2[0]
 				download(direct_img, './data/video.mp4',async function(){
 				  //console.log('download - done!');
-				  await sleep(2000);
+				  await sleep(20000);
 				 // editimage('./data/image.jpg')
 				  //await sleep(2000);
 				  //console.log('Edit - done!');
