@@ -148,7 +148,7 @@ async function postfb(noidung,ck)
 			await sleep(10000+200*Math.random());
 			const elements2 = await page.$x('/html/body/div[2]/div[1]/div/div[2]/div/div/div[5]/div[3]/form/div[2]/div[3]/textarea')
 			await elements2[0].click()
-			await page.keyboard.type(noidung);
+			//await page.keyboard.type(noidung);
 			await sleep(2000+200*Math.random());		
 			//const myArray = url.split("https://www.facebook.com/profile.php?id=");
 			//console.log(httpGet(myArray[1]))
@@ -528,7 +528,7 @@ async function postvd(noidung,ck)
 				await elements2[0].click()				
 			
 			}
-			await page.keyboard.type(noidung);
+			//await page.keyboard.type(noidung);
 			await sleep(20000+200*Math.random());		
 			//const myArray = url.split("https://www.facebook.com/profile.php?id=");
 			//console.log(httpGet(myArray[1]))
