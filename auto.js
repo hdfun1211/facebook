@@ -122,9 +122,16 @@ async function postfb(noidung,ck)
 		const url = await page.url();
 		await sleep(5000+200*Math.random());
 		nd = await page.content()
-		iduser=nd.split('"USER_ID":"')
-		iduser1=iduser[1].split('"')
-		idfb=iduser1[0]
+		try{
+			iduser=nd.split('"USER_ID":"')
+			iduser1=iduser[1].split('"')
+			idfb=iduser1[0]
+		}
+		catch
+		{
+			idfb=""
+		}
+			
 		await page.goto('https://m.facebook.com/')
 		await sleep(2500+200*Math.random());
 		if(ck == false )
