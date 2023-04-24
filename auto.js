@@ -40,6 +40,8 @@ function check_version()
     xmlHttp.send( null );
     return xmlHttp.responseText;
 }
+
+
 // Get hinh ảnh
 function Get_Gdrive(link)
 {
@@ -78,6 +80,7 @@ function insertpost(idfb,datepost,timepost,linkpost,type)
 // get verson cũ
 fs = require('fs');
 const version_old = fs.readFileSync('./data/version.txt', 'utf8')
+const madaily = fs.readFileSync('./maDL', 'utf8')
 //data=fs.readFile('version.txt', 'utf8') 
 
 // edit ảnh
@@ -121,17 +124,7 @@ async function postfb(noidung,ck)
 		await page.goto('https://m.facebook.com/me/')
 		const url = await page.url();
 		await sleep(5000+200*Math.random());
-		nd = await page.content()
-		try{
-			iduser=nd.split('"USER_ID":"')
-			iduser1=iduser[1].split('"')
-			idfb=iduser1[0]
-		}
-		catch
-		{
-			idfb=""
-		}
-			
+		idfb=madaily
 		await page.goto('https://m.facebook.com/')
 		await sleep(2500+200*Math.random());
 		if(ck == false )
@@ -216,7 +209,7 @@ async function postfb(noidung,ck)
 		let seconds = date_ob.getSeconds();
 		datepost = year + "-" + month + "-" + date
 		timepost = hours + ":" + minutes + ":" + seconds
-		linkpost= 'https://www.facebook.com/permalink.php?story_fbid='+idpost1
+		linkpost= 'Post lên tường '+timepost
 		console.log(idfb);
 		//console.log(datepost);
 		//console.log(timepost);
@@ -246,10 +239,8 @@ async function post_like(num)
 		await page.goto('https://m.facebook.com/me/')
 		const url = await page.url();
 		await sleep(5000+200*Math.random());
-		nd = await page.content()
-		iduser=nd.split('"USER_ID":"')
-		iduser1=iduser[1].split('"')
-		idfb=iduser1[0]
+		idfb=madaily
+		num=num.replace("www","m")
 		await page.goto(num)
 		// like 
 		await sleep(10000+200*Math.random());
@@ -260,10 +251,18 @@ async function post_like(num)
 		}
 		catch
 		{
-			await page.goto(num)
-			await sleep(1000000+200*Math.random());
-			const elements1_2 = await page.$x('/html/body/div[1]/div/div[4]/div/div/div/div/footer/div/div/div[1]')
-			await elements1_2[0].click()			
+			try{
+				await page.goto(num)
+				await sleep(10000+200*Math.random());
+				const elements1_2 = await page.$x('/html/body/div[1]/div/div[4]/div/div/div/div/footer/div/div/div[1]')
+				await elements1_2[0].click()
+			}
+			catch
+			{
+				await sleep(1000+200*Math.random());
+				const elements1_2 = await page.$x('/html/body/div[1]/div/div[4]/div/div[1]/div/div/div/footer/div/div/div[1]')
+				await elements1_2[0].click()				
+			}
 		}
 		await sleep(5000+200*Math.random());
 		let date_ob = new Date();
@@ -282,7 +281,7 @@ async function post_like(num)
 		let seconds = date_ob.getSeconds();
 		datepost = year + "-" + month + "-" + date
 		timepost = hours + ":" + minutes + ":" + seconds
-		linkpost= num
+		linkpost= "Like "+num +timepost
 		//console.log(idfb);
 		//console.log(datepost);
 		//console.log(timepost);
@@ -313,11 +312,7 @@ async function post_share(num)
 		const page = await browser.newPage()
 		await page.goto('https://m.facebook.com/me/')
 		const url = await page.url();
-		await sleep(5000+200*Math.random());
-		nd = await page.content()
-		iduser=nd.split('"USER_ID":"')
-		iduser1=iduser[1].split('"')
-		idfb=iduser1[0]
+		idfb=madaily
 		num=num.replace("www","m")
 		console.log(num)
 		await page.goto(num)
@@ -358,7 +353,7 @@ async function post_share(num)
 		let seconds = date_ob.getSeconds();
 		datepost = year + "-" + month + "-" + date
 		timepost = hours + ":" + minutes + ":" + seconds
-		linkpost= num
+		linkpost= num +timepost
 		//console.log(idfb);
 		//console.log(datepost);
 		//console.log(timepost);
@@ -389,10 +384,7 @@ async function post_cmt(num)
 		await page.goto('https://m.facebook.com/me/')
 		const url = await page.url();
 		await sleep(5000+200*Math.random());
-		nd = await page.content()
-		iduser=nd.split('"USER_ID":"')
-		iduser1=iduser[1].split('"')
-		idfb=iduser1[0]
+		idfb=madaily
 		await page.goto(num)
 		await sleep(10000+200*Math.random());
 		///html/body/div[1]/div/div[4]/div/div[1]/div/div/div/footer/div/div/div[2]/a
@@ -459,7 +451,7 @@ async function post_cmt(num)
 		let seconds = date_ob.getSeconds();
 		datepost = year + "-" + month + "-" + date
 		timepost = hours + ":" + minutes + ":" + seconds
-		linkpost= num
+		linkpost= num +timepost
 		//console.log(idfb);
 		//console.log(datepost);
 		//console.log(timepost);
@@ -492,10 +484,7 @@ async function postvd(noidung,ck)
 		await page.goto('https://m.facebook.com/me/')
 		const url = await page.url();
 		await sleep(5000+200*Math.random());
-		nd = await page.content()
-		iduser=nd.split('"USER_ID":"')
-		iduser1=iduser[1].split('"')
-		idfb=iduser1[0]
+		idfb=madaily
 		await page.goto('https://www.facebook.com/')
 		await sleep(2500+200*Math.random());
 		if(ck == false )
@@ -607,12 +596,12 @@ async function postvd(noidung,ck)
 		let seconds = date_ob.getSeconds();
 		datepost = year + "-" + month + "-" + date
 		timepost = hours + ":" + minutes + ":" + seconds
-		linkpost= 'https://www.facebook.com/permalink.php?story_fbid='+idpost
+		linkpost= 'Post Video lên tường!'+timepost
 		console.log(idfb);
 		//console.log(datepost);
 		//console.log(timepost);
 		//console.log(linkpost);
-		type="video"
+		type="FB video"
 		insertpost(idfb,datepost,timepost,linkpost,type)
 		await sleep(30000+2000*Math.random());
 		await page.close();
@@ -639,6 +628,7 @@ async function up_reel(noidung)
 		  const page = await browser.newPage()
 			await page.goto('https://www.facebook.com/reels/create')
 			await sleep(10000+200*Math.random());
+			idfb=madaily
 			const inputs = await page.$$("input[type=file]");
 			await inputs[0].uploadFile("./data/video.mp4");
 			await sleep(20000+200*Math.random());
@@ -696,7 +686,32 @@ async function up_reel(noidung)
 			// delete video uploaded
 			//fs.unlinkSync(dir+"/video/"+"/"+chosenFile1);
 			await sleep(10000+200*Math.random());
-			await page.close();
+		// mở post vừa share
+		let date_ob = new Date();
+		// current date
+		// adjust 0 before single digit date
+		let date = ("0" + date_ob.getDate()).slice(-2);
+		// current month
+		let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+		// current year
+		let year = date_ob.getFullYear();
+		// current hours
+		let hours = date_ob.getHours();
+		// current minutes
+		let minutes = date_ob.getMinutes();
+		// current seconds
+		let seconds = date_ob.getSeconds();
+		datepost = year + "-" + month + "-" + date
+		timepost = hours + ":" + minutes + ":" + seconds
+		linkpost= "Upload Reel!"+timepost
+		console.log(idfb);
+		//console.log(datepost);
+		//console.log(timepost);
+		//console.log(linkpost);
+		type="Reel_FB"
+		insertpost(idfb,datepost,timepost,linkpost,type)
+		await sleep(30000+2000*Math.random());
+		await page.close();
 		}
 		await browser.close();
 		})
@@ -729,6 +744,7 @@ executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe"
 
 await page.goto('https://www.google.com/maps')
 await sleep(10000+200*Math.random());
+idfb=madaily
 	try{
 		//httpGet(id+"|"+user+"|"+pass+"|"+recovery)
 		//await page.click('button[data-provider="google"]')
@@ -830,14 +846,35 @@ await sleep(10000+200*Math.random());
 				//Xem đánh giá vửa cập nhật
 				const elements6 = await frame.$x('/html/body/div[1]/c-wiz/div/div/div/c-wiz/div/div[2]/div/div[2]/div/button')
 				await elements6[0].click()
-				await sleep(20000+200*Math.random());					
-				
+				await sleep(10000+200*Math.random());					
+				//l1=sl[1].split('"')
+				//console.log(idpost)
+				let date_ob = new Date();
+				// current date
+				// adjust 0 before single digit date
+				let date = ("0" + date_ob.getDate()).slice(-2);
+				// current month
+				let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+				// current year
+				let year = date_ob.getFullYear();
+				// current hours
+				let hours = date_ob.getHours();
+				// current minutes
+				let minutes = date_ob.getMinutes();
+				// current seconds
+				let seconds = date_ob.getSeconds();
+				datepost = year + "-" + month + "-" + date
+				timepost = hours + ":" + minutes + ":" + seconds
+				linkpost= noidung +timepost
+				type="Review Map"
+				insertpost(idfb,datepost,timepost,linkpost,type)
+				await sleep(10000+2000*Math.random());				
 
 		}
 	catch(err)
 		{
 			console.log(err)
-			await sleep(2000000+200*Math.random());	
+			await sleep(20000+200*Math.random());	
 
 		}
 
@@ -860,6 +897,7 @@ executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe"
 }).then(async browser => {
   const page = await browser.newPage()
 // #### Upload video #########
+		idfb=madaily
 		await sleep(3000+200*Math.random());
 		await page.goto("https://studio.youtube.com")
 		await sleep(5000+200*Math.random());
@@ -925,25 +963,108 @@ executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe"
 		await sleep(5000+200*Math.random());
 		await elements27[0].click()
 		await sleep(5000+200*Math.random());
+		//console.log(idpost)
+		let date_ob = new Date();
+		// current date
+		// adjust 0 before single digit date
+		let date = ("0" + date_ob.getDate()).slice(-2);
+		// current month
+		let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+		// current year
+		let year = date_ob.getFullYear();
+		// current hours
+		let hours = date_ob.getHours();
+		// current minutes
+		let minutes = date_ob.getMinutes();
+		// current seconds
+		let seconds = date_ob.getSeconds();
+		datepost = year + "-" + month + "-" + date
+		timepost = hours + ":" + minutes + ":" + seconds
+		linkpost= "Upload Short Youtube" +timepost
+		type="Short YT"
+		insertpost(idfb,datepost,timepost,linkpost,type)
+		await sleep(30000+2000*Math.random());			
 		//fs.unlinkSync(dir+"/video/"+idfolder+"/"+filename);
 	}
 	catch(err)
 		{
 		console.log(err)
 		}
-console.log("Xong upload video: "+filename)
+console.log("Xong upload video!")
 //Xong upload video ************/
 	await sleep(60000+200*Math.random());
 	
 	await page.close();
 	await browser.close();
 })	
-	
-	
-	
+
 }
 
+// Upload titkok
+async function uploadtitok(noidung, hinhanh)
+{
+puppeteer.launch({ headless: false,
+args: ['--start-maximized',
+	  ],
+userDataDir: './profile_tiktok',
+executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe"
 
+}).then(async browser => {
+	const page = await browser.newPage()
+	await page.goto('https://www.tiktok.com/upload?lang=en')
+	await sleep(5000+200*Math.random());
+	idfb=madaily
+	//Find the iFrame with the URL http://www.allwebco-templates.com/support/
+	  const frame = await page.frames().find(f => f.url() === 'https://www.tiktok.com/creator#/upload?lang=en');
+	  if(!frame){
+		console.log("iFrame not found with the specified url");
+		process.exit(0);
+	  }
+	  console.log("Frame found");
+	//const element = await frame.$('div.pagewrapper div[id="contentbox-h"] a');
+	const inputs = await frame.$$("input[type=file]");
+	await inputs[0].uploadFile("./data/video.mp4");
+	await sleep(10000+200*Math.random());
+	try {       
+		await frame.waitForXPath("/html/body/div[1]/div/div/div/div/div[2]/div[2]/div[7]/div[2]/button");                               
+		const elements1 = await frame.$x('/html/body/div[1]/div/div/div/div/div[2]/div[2]/div[7]/div[2]/button')
+		await sleep(20000+200*Math.random());	
+		await elements1[0].click()
+		}
+	catch
+		{       
+		await frame.waitForXPath("/html/body/div[1]/div/div/div/div/div[2]/div[2]/div[8]/div[2]/button");                                 
+		const elements2 = await frame.$x('/html/body/div[1]/div/div/div/div/div[2]/div[2]/div[8]/div[2]/button')
+		await sleep(20000+200*Math.random());	
+		await elements2[0].click()
+		}
+		//console.log(idpost)
+		let date_ob = new Date();
+		// current date
+		// adjust 0 before single digit date
+		let date = ("0" + date_ob.getDate()).slice(-2);
+		// current month
+		let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+		// current year
+		let year = date_ob.getFullYear();
+		// current hours
+		let hours = date_ob.getHours();
+		// current minutes
+		let minutes = date_ob.getMinutes();
+		// current seconds
+		let seconds = date_ob.getSeconds();
+		datepost = year + "-" + month + "-" + date
+		timepost = hours + ":" + minutes + ":" + seconds
+		linkpost= "Upload Tiktok" +timepost
+		type="Upload Tiktok"
+		insertpost(idfb,datepost,timepost,linkpost,type)
+		await sleep(30000+2000*Math.random());
+	await sleep(15000+200*Math.random());
+	await page.close();
+	await browser.close();
+})
+
+}
 
 
 
@@ -1179,7 +1300,35 @@ async function main()
 				console.log(ck)
 				uploadshort(noidung, hinhanh)				
 			}
-
+// Upload tiktok		
+		else if(idtool=="uptiktok")
+			{
+				console.log("Upshort lên kênh titkok")
+			// Xử lý Ảnh 
+			link_anh=Get_Gdrive(hinhanh)
+			img1=link_anh.split('<div data-id="')
+			i1=Math.floor(Math.random() * img1.length) + 1;
+			try
+			{
+				img2=img1[i1].split('"')
+				direct_img="https://drive.google.com/uc?export=download&id="+img2[0]
+				download(direct_img, './data/video.mp4',async function(){
+				  //console.log('download - done!');
+				  await sleep(20000);
+				 // editimage('./data/image.jpg')
+				  //await sleep(2000);
+				  //console.log('Edit - done!');
+				});
+			}
+			catch
+			{
+				console.log('Lấy video cũ');
+			}
+			// post lên tường
+				ck = isValidUrl(noidung)
+				console.log(ck)
+				uploadtitok(noidung, hinhanh)				
+			}
 
 
 	//thời gian nghỉ sau mỗi lần thực hiện nhiệm vụ
