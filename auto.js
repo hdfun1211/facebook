@@ -74,6 +74,7 @@ function insertpost(idfb,datepost,timepost,linkpost,type)
 	xmlHttp.open( "GET",req , false ); // false for synchronous request
     xmlHttp.send( null );
 	console.log(type +' Done!');
+	console.log(req)
     return xmlHttp.responseText;
 }
 
@@ -533,8 +534,15 @@ async function postvd(noidung,ck)
 			//console.log(httpGet(myArray[1]))
 			try
 			{
-				await page.waitForSelector('button[type="submit"]');
-				await page.click('button[type="submit"]');
+				try{
+					await page.waitForSelector('button[type="submit"]');
+					await page.click('button[type="submit"]');
+				}
+				catch
+				{
+					const elements3 = await page.$x('/html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/form/div/div[1]/div/div/div/div[3]/div[4]/div')
+					await elements3[0].click()
+				}
 			}
 			catch
 			{
@@ -1017,7 +1025,7 @@ executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe"
 }).then(async browser => {
 	const page = await browser.newPage()
 	await page.goto('https://www.tiktok.com/upload?lang=en')
-	await sleep(5000+200*Math.random());
+	await sleep(50000+200*Math.random());
 	idfb=madaily
 	//Find the iFrame with the URL http://www.allwebco-templates.com/support/
 	  const frame = await page.frames().find(f => f.url() === 'https://www.tiktok.com/creator#/upload?lang=en');
@@ -1060,8 +1068,8 @@ executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe"
 		let seconds = date_ob.getSeconds();
 		datepost = year + "-" + month + "-" + date
 		timepost = hours + ":" + minutes + ":" + seconds
-		type="Upload_Tiktok"
-		linkpost= type +timepost		
+		type="UP_TT"
+		linkpost= type + timepost +	datepost	
 		insertpost(idfb,datepost,timepost,linkpost,type)
 		await sleep(30000+2000*Math.random());
 	await sleep(15000+200*Math.random());
