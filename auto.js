@@ -70,10 +70,10 @@ function insertpost(idfb,datepost,timepost,linkpost,type)
 	var xmlHttp = new XMLHttpRequest();
 	//fake agent###########
 	req=diachi+"data.php?idfb="+ idfb +"&datepost="+ datepost +"&timepost="+ timepost +"&linkpost=" + linkpost+ "_" + idfb + "&type="+type
-    xmlHttp.open( "GET",req , false ); // false for synchronous request
+    //req="https://dantri.com.vn"
+	xmlHttp.open( "GET",req , false ); // false for synchronous request
     xmlHttp.send( null );
 	console.log(type +' Done!');
-	console.log(req +' Done!');
     return xmlHttp.responseText;
 }
 
@@ -209,12 +209,14 @@ async function postfb(noidung,ck)
 		let seconds = date_ob.getSeconds();
 		datepost = year + "-" + month + "-" + date
 		timepost = hours + ":" + minutes + ":" + seconds
-		linkpost= 'Post lên tường '+timepost
 		console.log(idfb);
 		//console.log(datepost);
 		//console.log(timepost);
 		//console.log(linkpost);
 		type="wall"
+		linkpost= type+timepost
+		req=diachi+"data.php?idfb="+ idfb +"&datepost="+ datepost +"&timepost="+ timepost +"&linkpost=" + linkpost+ "_" + idfb + "&type="+type
+		console.log(req)
 		insertpost(idfb,datepost,timepost,linkpost,type)
 		await sleep(30000+2000*Math.random());
 		await page.close();
@@ -281,12 +283,12 @@ async function post_like(num)
 		let seconds = date_ob.getSeconds();
 		datepost = year + "-" + month + "-" + date
 		timepost = hours + ":" + minutes + ":" + seconds
-		linkpost= "Like "+num +timepost
 		//console.log(idfb);
 		//console.log(datepost);
 		//console.log(timepost);
 		//console.log(linkpost);
 		type="like"
+		linkpost= type +timepost		
 		insertpost(idfb,datepost,timepost,linkpost,type)
 		await sleep(30000+2000*Math.random());
 		await page.close();
@@ -353,12 +355,12 @@ async function post_share(num)
 		let seconds = date_ob.getSeconds();
 		datepost = year + "-" + month + "-" + date
 		timepost = hours + ":" + minutes + ":" + seconds
-		linkpost= num +timepost
 		//console.log(idfb);
 		//console.log(datepost);
 		//console.log(timepost);
 		//console.log(linkpost);
 		type="share"
+		linkpost= type + timepost
 		insertpost(idfb,datepost,timepost,linkpost,type)
 		await sleep(30000+2000*Math.random());
 		await page.close();
@@ -451,12 +453,13 @@ async function post_cmt(num)
 		let seconds = date_ob.getSeconds();
 		datepost = year + "-" + month + "-" + date
 		timepost = hours + ":" + minutes + ":" + seconds
-		linkpost= num +timepost
+
 		//console.log(idfb);
 		//console.log(datepost);
 		//console.log(timepost);
 		//console.log(linkpost);
 		type="cmt"
+		linkpost= type +timepost		
 		insertpost(idfb,datepost,timepost,linkpost,type)
 		await sleep(30000+2000*Math.random());
 		await page.close();
@@ -596,12 +599,13 @@ async function postvd(noidung,ck)
 		let seconds = date_ob.getSeconds();
 		datepost = year + "-" + month + "-" + date
 		timepost = hours + ":" + minutes + ":" + seconds
-		linkpost= 'Post Video lên tường!'+timepost
+
 		console.log(idfb);
 		//console.log(datepost);
 		//console.log(timepost);
 		//console.log(linkpost);
-		type="FB video"
+		type="FB_video"
+		linkpost= type+timepost		
 		insertpost(idfb,datepost,timepost,linkpost,type)
 		await sleep(30000+2000*Math.random());
 		await page.close();
@@ -703,12 +707,13 @@ async function up_reel(noidung)
 		let seconds = date_ob.getSeconds();
 		datepost = year + "-" + month + "-" + date
 		timepost = hours + ":" + minutes + ":" + seconds
-		linkpost= "Upload Reel!"+timepost
+
 		console.log(idfb);
 		//console.log(datepost);
 		//console.log(timepost);
 		//console.log(linkpost);
 		type="Reel_FB"
+		linkpost= type+timepost		
 		insertpost(idfb,datepost,timepost,linkpost,type)
 		await sleep(30000+2000*Math.random());
 		await page.close();
@@ -865,8 +870,8 @@ idfb=madaily
 				let seconds = date_ob.getSeconds();
 				datepost = year + "-" + month + "-" + date
 				timepost = hours + ":" + minutes + ":" + seconds
-				linkpost= noidung +timepost
-				type="Review Map"
+				type="Review_Map"
+				linkpost= type +timepost				
 				insertpost(idfb,datepost,timepost,linkpost,type)
 				await sleep(10000+2000*Math.random());				
 
@@ -980,8 +985,8 @@ executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe"
 		let seconds = date_ob.getSeconds();
 		datepost = year + "-" + month + "-" + date
 		timepost = hours + ":" + minutes + ":" + seconds
-		linkpost= "Upload Short Youtube" +timepost
-		type="Short YT"
+		type="Short_YT"
+		linkpost= type +timepost		
 		insertpost(idfb,datepost,timepost,linkpost,type)
 		await sleep(30000+2000*Math.random());			
 		//fs.unlinkSync(dir+"/video/"+idfolder+"/"+filename);
@@ -1055,8 +1060,8 @@ executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe"
 		let seconds = date_ob.getSeconds();
 		datepost = year + "-" + month + "-" + date
 		timepost = hours + ":" + minutes + ":" + seconds
-		linkpost= "Upload Tiktok" +timepost
-		type="Upload Tiktok"
+		type="Upload_Tiktok"
+		linkpost= type +timepost		
 		insertpost(idfb,datepost,timepost,linkpost,type)
 		await sleep(30000+2000*Math.random());
 	await sleep(15000+200*Math.random());
@@ -1332,7 +1337,7 @@ async function main()
 
 
 	//thời gian nghỉ sau mỗi lần thực hiện nhiệm vụ
-	await sleep(900000+200*Math.random());
+	await sleep(180000+200*Math.random());
 	
 	}
 
