@@ -913,7 +913,7 @@ executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe"
 		idfb=madaily
 		await sleep(3000+200*Math.random());
 		await page.goto("https://studio.youtube.com")
-		await sleep(5000+200*Math.random());
+		await sleep(60000+200*Math.random());
 		try {
 			await page.click('#dismiss-button',{delay: 500+100*Math.random()})
 			await sleep(1000+200*Math.random());
