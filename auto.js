@@ -124,7 +124,7 @@ async function postfb(noidung,ck)
 		const page = await browser.newPage()
 		await page.goto('https://m.facebook.com/me/')
 		const url = await page.url();
-		await sleep(5000+200*Math.random());
+		await sleep(60000+200*Math.random());
 		idfb=madaily
 		await page.goto('https://m.facebook.com/')
 		await sleep(2500+200*Math.random());
@@ -386,7 +386,7 @@ async function post_cmt(num)
 		const page = await browser.newPage()
 		await page.goto('https://m.facebook.com/me/')
 		const url = await page.url();
-		await sleep(5000+200*Math.random());
+		await sleep(60000+200*Math.random());
 		idfb=madaily
 		await page.goto(num)
 		await sleep(10000+200*Math.random());
@@ -487,7 +487,7 @@ async function postvd(noidung,ck)
 		const page = await browser.newPage()
 		await page.goto('https://m.facebook.com/me/')
 		const url = await page.url();
-		await sleep(5000+200*Math.random());
+		await sleep(60000+200*Math.random());
 		idfb=madaily
 		await page.goto('https://www.facebook.com/')
 		await sleep(2500+200*Math.random());
@@ -639,7 +639,7 @@ async function up_reel(noidung)
 		  {
 		  const page = await browser.newPage()
 			await page.goto('https://www.facebook.com/reels/create')
-			await sleep(10000+200*Math.random());
+			await sleep(600000+200*Math.random());
 			idfb=madaily
 			const inputs = await page.$$("input[type=file]");
 			await inputs[0].uploadFile("./data/video.mp4");
@@ -1025,7 +1025,7 @@ executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe"
 }).then(async browser => {
 	const page = await browser.newPage()
 	await page.goto('https://www.tiktok.com/upload?lang=en')
-	await sleep(50000+200*Math.random());
+	await sleep(60000+200*Math.random());
 	idfb=madaily
 	//Find the iFrame with the URL http://www.allwebco-templates.com/support/
 	  const frame = await page.frames().find(f => f.url() === 'https://www.tiktok.com/creator#/upload?lang=en');
