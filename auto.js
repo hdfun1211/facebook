@@ -127,15 +127,23 @@ async function postfb(noidung,ck)
 		await sleep(60000+200*Math.random());
 		idfb=madaily
 		await page.goto('https://m.facebook.com/')
-		await sleep(2500+200*Math.random());
+		await sleep(25000+200*Math.random());
 		if(ck == false )
 		{
 			// vừa ảnh vừa text
 			//const elements1 = await page.$x('/html/body/div[1]/div[1]/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div[4]/div[2]/div/div[2]/div[1]/div/div/div/div/div[1]/div')
 			//await elements1[0].click()
 			await sleep(2000+200*Math.random());
-			const elements1_1 = await page.$x('/html/body/div[1]/div/div[4]/div/div[1]/div[3]/div/div/div[1]/div[2]')
-			await elements1_1[0].click()
+			try{
+				const elements1_1 = await page.$x('/html/body/div[1]/div/div[4]/div/div[1]/div[3]/div/div/div[1]/div[2]')
+				await elements1_1[0].click()
+			}
+			catch
+			{
+				const elements1_1 = await page.$x('/html/body/div[1]/div/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div[2]/div/div/div/div[3]/div/div[2]/div/div/div/div[2]/div[2]')
+				await elements1_1[0].click()				
+				
+			}
 			await sleep(5000+200*Math.random());		
 			const input = await page.$$('input[type=file]');
 			try
@@ -147,8 +155,14 @@ async function postfb(noidung,ck)
 					await input[0].uploadFile("./data/image.new.jpg");	
 				}
 			await sleep(10000+200*Math.random());
-			const elements2 = await page.$x('/html/body/div[2]/div[1]/div/div[2]/div/div/div[5]/div[3]/form/div[2]/div[3]/textarea')
-			await elements2[0].click()
+			try{
+				const elements2 = await page.$x('/html/body/div[2]/div[1]/div/div[2]/div/div/div[5]/div[3]/form/div[2]/div[3]/textarea')
+				await elements2[0].click()
+			}
+			catch 
+			{
+				console.log("Khong dien mo ta!")
+			}
 			//await page.keyboard.type(noidung);
 			await sleep(2000+200*Math.random());		
 			//const myArray = url.split("https://www.facebook.com/profile.php?id=");
@@ -160,8 +174,16 @@ async function postfb(noidung,ck)
 			}
 			catch
 			{
-				const elements3 = await page.$x('/html/body/div[2]/div[1]/div/div[2]/div/div/div[5]/div[3]/div/div/button')
-				await elements3[0].click()
+				try{
+					const elements3 = await page.$x('/html/body/div[2]/div[1]/div/div[2]/div/div/div[5]/div[3]/div/div/button')
+					await elements3[0].click()
+				}
+				catch
+				{
+					const elements3 = await page.$x('/html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/form/div/div[1]/div/div/div/div[3]/div[2]/div')
+					await elements3[0].click()					
+					
+				}
 			}
 			await sleep(10000+200*Math.random());
 		}
